@@ -1,4 +1,4 @@
-# Handshake Helm Charts
+# Nervos Helm Charts
 
 This is an unofficial registry of [Nervos](https://nervos.org/) [helm](https://helm.sh/) charts.
 
