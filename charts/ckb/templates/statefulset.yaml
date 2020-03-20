@@ -46,8 +46,8 @@ spec:
           - name: CKB_CHAIN
             value: {{ .Values.chain }}
           ports:
-            - name: http
-              containerPort: 80
+            - name: rpc
+              containerPort: 8114
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
