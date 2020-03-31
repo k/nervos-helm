@@ -22,18 +22,24 @@ spec:
       serviceAccountName: {{ include "ckb.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      # initContainers:
-      #   - name: init-config
-      #     image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
-      #     imagePullPolicy: {{ .Values.image.pullPolicy }}
-      #     args:
-      #     - init
-      #     - --chain
-      #     - {{ .Values.chain }}
-      #     - --force
-      #     volumeMounts:
-      #     - name: chaindata
-      #       mountPath: /var/lib/ckb
+      initContainers:
+        - name: init-config
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+          - init
+          {{- if eq .Values.chain "testnet" }}
+          - --import-spec
+          - /var/lib/configs/aggron.toml
+          {{- end }}
+          - --chain
+          - {{ .Values.chain }}
+          - --force
+          volumeMounts:
+          - name: chaindata
+            mountPath: /var/lib/ckb
+          - name: config
+            mountPath: /var/lib/configs
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -66,6 +72,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+      volumes:
+      - name: config
+        configMap:
+          name: {{ include "ckb.fullname" . }}-config
   volumeClaimTemplates:
   - metadata:
       name: chaindata
