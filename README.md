@@ -5,6 +5,10 @@ This is an unofficial registry of [Nervos](https://nervos.org/) [helm](https://h
 ## Prerequisites
 * [Helm](https://helm.sh/) 3+
 
+## Quickstart
+
+[Get a ckb testnet node running in 5 minutes](./docs/testnet-quickstart.md)
+
 ## Setup
 
 Add the nervos helm repo:
