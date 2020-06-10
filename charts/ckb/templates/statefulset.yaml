@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "ckb.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: "Parallel"
   replicas: {{ .Values.replicaCount }}
   serviceName: {{ include "ckb.fullname" . }}
   selector:
@@ -22,6 +23,7 @@ spec:
       serviceAccountName: {{ include "ckb.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      hostNetwork: true
       initContainers:
         - name: init-config
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
@@ -54,6 +56,10 @@ spec:
           ports:
             - name: rpc
               containerPort: 8114
+              protocol: TCP
+            - name: peer
+              containerPort: 8115
+              hostPort: 8115
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
