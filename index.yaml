@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   ckb:
   - apiVersion: v2
+    appVersion: v0.32.1
+    created: "2020-06-10T22:04:09.229989-04:00"
+    description: Nervos CKB Full Node
+    digest: c7ac8a41e621216db055c293f2f80af4ba39fea0384203b69d1ab6a90cafa767
+    name: ckb
+    urls:
+    - https://github.com/k/nervos-helm/releases/download/ckb-0.4.0/ckb-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     appVersion: v0.29.0
     created: "2020-06-10T12:35:49.944486-04:00"
     description: Nervos CKB Full Node
